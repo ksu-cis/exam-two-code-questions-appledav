@@ -1,11 +1,15 @@
 using System;
 using ExamTwoCodeQuestions.Data;
 using Xunit;
+using System.ComponentModel;
 
 namespace ExamTwoCodeQuestions.DataTests
 {
     public class CobblerUnitTests
     {
+
+        private bool wasCalled;
+
         [Theory]
         [InlineData(FruitFilling.Cherry)]
         [InlineData(FruitFilling.Blueberry)]
@@ -71,6 +75,28 @@ namespace ExamTwoCodeQuestions.DataTests
         {
             var cobbler = new Cobbler();
             Assert.IsAssignableFrom<IOrderItem>(cobbler);
+        }
+
+        [Fact]
+        public void ImplementINotifyPropertyChanged()
+        {
+            var cobbler = new Cobbler();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(cobbler);
+        }
+
+        [Fact]
+        public void DidPropertyChange()
+        {
+            var cobbler = new Cobbler();
+            cobbler.PropertyChanged += HelperPropertyChanged;
+            cobbler.Fruit = FruitFilling.Blueberry;
+            cobbler.WithIceCream = false;
+            Assert.True(wasCalled);
+        }
+
+        public void HelperPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.wasCalled = true;
         }
     }
 }

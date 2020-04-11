@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExamTwoCodeQuestions.Data;
 
 namespace ExamTwoQuestions.PointOfSale
 {
@@ -18,9 +19,42 @@ namespace ExamTwoQuestions.PointOfSale
     /// </summary>
     public partial class CustomizeCobblerControl : UserControl
     {
+
+        public Cobbler cobbler { get; set; }
+
         public CustomizeCobblerControl()
         {
             InitializeComponent();
+            cobbler = new Cobbler();
+            
+        }
+
+
+        private void ButtonClick(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).Name)
+            {
+                case "Peach":
+                    cobbler.Fruit = FruitFilling.Peach;
+                    cobbler.InvokePropertyChanged("Fruit");
+                    break;
+
+                case "Cherry":
+                    cobbler.Fruit = FruitFilling.Peach;
+                    cobbler.InvokePropertyChanged("Fruit");
+                    break;
+
+                case "BlueBerry":
+                    cobbler.Fruit = FruitFilling.Peach;
+                    cobbler.InvokePropertyChanged("Fruit");
+                    break;
+
+                case "IceCream":
+                    cobbler.WithIceCream = true;
+                    cobbler.InvokePropertyChanged("WithIceCream");
+                    break;
+            }
+            
         }
     }
 }
